@@ -9,6 +9,9 @@ spec:
     repoURL: https://github.com/christianknell/blog-code
     targetRevision: main
     path: deploying-helm-charts-using-argocd-and-helmfile
+    # this is the important part to use the config management plugin
+    plugin:
+      name: helmfile
   destination:
     server: https://kubernetes.default.svc
     namespace: default
