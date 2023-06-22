@@ -1,0 +1,11 @@
+repositories:
+  - name: christianknell
+    url: https://christianknell.github.io/helm-charts
+
+releases:
+  - name: popeye
+    namespace: security
+    chart: christianknell/popeye
+    values:
+      - cronJob:
+          outputFormat: "prometheus"
