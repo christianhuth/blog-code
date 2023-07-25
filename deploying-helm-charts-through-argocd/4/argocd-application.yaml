@@ -6,7 +6,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/christianknell/blog-code.git
-    targetRevision: HEAD
+    targetRevision: main
     path: deploying-helm-charts-through-argocd/4
     kustomize: {}
   destination:
