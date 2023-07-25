@@ -8,4 +8,5 @@ releases:
     chart: bitnami/postgresql
     values:
       - auth:
-          rootPassword: "J7Fa_T4~@.HQg1w8BP2d#9Lm*G[D3I+5"
+          username: my-user
+          password: my-password
