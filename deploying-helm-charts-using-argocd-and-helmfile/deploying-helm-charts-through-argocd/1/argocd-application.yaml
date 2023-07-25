@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-postgres
+spec:
+  source:
+    # The URL of the Helm repository
+    repoURL: https://charts.bitnami.com/bitnami
+    # The name of the Helm Chart
+    chart: postgresql
+    # The version of the Helm Chart
+    targetRevision: "12.5.8"
+    helm:
+      # Define the release name (defaults to the name of the ArgoCD application)
+      releaseName: my-postgres-database
+      # Helm values as block file
+      values: |
+        auth:
+          username: my-user
+          password: my-password
