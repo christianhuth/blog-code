@@ -5,7 +5,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/christianknell/blog-code
+    repoURL: https://github.com/christianknell/blog-code.git
     targetRevision: main
     path: deploying-helm-charts-through-argocd/2/mychart
     helm:
