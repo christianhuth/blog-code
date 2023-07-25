@@ -3,6 +3,7 @@ kind: Application
 metadata:
   name: my-postgres
 spec:
+  project: default
   source:
     repoURL: https://github.com/christianknell/blog-code.git
     targetRevision: main
