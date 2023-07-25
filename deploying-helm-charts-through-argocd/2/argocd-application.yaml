@@ -4,6 +4,7 @@ kind: Application
 metadata:
   name: mychart
 spec:
+  project: default
   source:
     repoURL: https://github.com/christianknell/blog-code
     targetRevision: main
@@ -13,3 +14,6 @@ spec:
       valueFiles:
         - values.yaml
         - values-production.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default

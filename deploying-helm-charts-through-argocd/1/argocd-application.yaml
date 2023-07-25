@@ -3,6 +3,7 @@ kind: Application
 metadata:
   name: my-postgres
 spec:
+  project: default
   source:
     # The URL of the Helm repository
     repoURL: https://charts.bitnami.com/bitnami
@@ -18,3 +19,6 @@ spec:
         auth:
           username: my-user
           password: my-password
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default

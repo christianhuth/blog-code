@@ -16,3 +16,6 @@ spec:
           password: my-password
       valueFiles:
         - my-values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
