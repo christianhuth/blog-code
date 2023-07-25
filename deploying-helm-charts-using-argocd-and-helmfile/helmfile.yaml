@@ -1,6 +1,3 @@
-helmDefaults:
-  insecureSkipTLSVerify: true
-
 repositories:
   - name: christianknell
     url: https://christianknell.github.io/helm-charts
