@@ -1,4 +1,3 @@
----
 apiVersion: v2
 name: my-postgres
 version: 1.0.0
