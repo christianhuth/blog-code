@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helm-through-kustomize
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/christianknell/blog-code.git
+    targetRevision: HEAD
+    path: deploying-helm-charts-through-argocd/4
+    kustomize: {}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
