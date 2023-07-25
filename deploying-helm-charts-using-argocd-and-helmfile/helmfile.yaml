@@ -1,11 +1,11 @@
 repositories:
-  - name: christianknell
-    url: https://christianknell.github.io/helm-charts
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
 
 releases:
-  - name: popeye
-    namespace: security
-    chart: christianknell/popeye
+  - name: postgresql
+    namespace: default
+    chart: bitnami/postgresql
     values:
-      - cronJob:
-          outputFormat: "prometheus"
+      - auth:
+          rootPassword: "J7Fa_T4~@.HQg1w8BP2d#9Lm*G[D3I+5"
