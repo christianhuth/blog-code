@@ -1,0 +1,8 @@
+---
+apiVersion: v2
+name: my-postgres
+version: 1.0.0
+dependencies:
+  - name: postgresql
+    repository: https://charts.bitnami.com/bitnami
+    version: 12.5.8

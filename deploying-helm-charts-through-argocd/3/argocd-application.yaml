@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-postgres
+spec:
+  source:
+    repoURL: https://github.com/christianknell/blog-code.git
+    targetRevision: main
+    path: deploying-helm-charts-through-argocd/3
+    helm:
+      releaseName: my-postgres-database
+      values: |
+        auth:
+          username: my-user
+          password: my-password
+      valueFiles:
+        - my-values.yaml

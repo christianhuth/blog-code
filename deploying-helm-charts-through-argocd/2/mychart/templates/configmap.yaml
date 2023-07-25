@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-secret
+type: generic
+stringData:
+  USERNAME: {{ .Values.auth.username | quote }}
+  PASSWORD: {{ .Values.auth.password | quote }}
