@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/christianknell/blog-code
     targetRevision: main
-    path: deploying-helm-charts-through-argocd/2
+    path: deploying-helm-charts-through-argocd/2/mychart
     helm:
       releaseName: mychart
       valueFiles:
