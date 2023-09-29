@@ -1,0 +1,10 @@
+ingress:
+  enabled: true
+
+blackbox:
+  blackboxProber:
+    enabled: true
+    namespace: monitoring
+  helmTargets:
+    enabled: true
+    service: true

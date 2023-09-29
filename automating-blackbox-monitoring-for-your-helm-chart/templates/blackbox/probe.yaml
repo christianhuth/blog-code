@@ -1,0 +1,94 @@
+{{- if and (.Values.blackbox.enabled) (or (and (not .Values.blackbox.helmTargets.enabled) (.Values.blackbox.probeSpec.targets)) (and (.Values.blackbox.helmTargets.enabled) (or (.Values.blackbox.helmTargets.service) (and (.Values.ingress.enabled) (.Values.blackbox.helmTargets.ingress))))) }}
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: {{ include "automating-blackbox-monitoring-for-your-helm-chart.fullname" . }}-probe
+spec:
+  {{- if .Values.blackbox.probeSpec.authorization }}
+  authorization:
+    {{- .Values.blackbox.probeSpec.authorization | toYaml | nindent 4 }}
+  {{- end }}
+  {{- if .Values.blackbox.probeSpec.basicAuth }}
+  basicAuth:
+    {{- .Values.blackbox.probeSpec.basicAuth | toYaml | nindent 4 }}
+  {{- end }}
+  {{- if .Values.blackbox.probeSpec.bearerTokenSecret }}
+  bearerTokenSecret:
+    {{- .Values.blackbox.probeSpec.bearerTokenSecret | toYaml | nindent 4 }}
+  {{- end }}
+  {{- if .Values.blackbox.probeSpec.interval }}
+  interval: {{ .Values.blackbox.probeSpec.interval | quote }}
+  {{- end }}
+  {{- if .Values.blackbox.probeSpec.jobName }}
+  jobName: {{ .Values.blackbox.probeSpec.jobName | quote }}
+  {{- end }}
+  {{- if .Values.blackbox.probeSpec.labelLimit }}
+  labelLimit: {{ .Values.blackbox.probeSpec.labelLimit | quote }}
+  {{- end }}
+  {{- if .Values.blackbox.probeSpec.labelNameLengthLimit }}
+  labelNameLengthLimit: {{ .Values.blackbox.probeSpec.labelNameLengthLimit | quote }}
+  {{- end }}
+  {{- if .Values.blackbox.probeSpec.labelValueLengthLimit }}
+  labelValueLengthLimit: {{ .Values.blackbox.probeSpec.labelValueLengthLimit | quote }}
+  {{- end }}
+  {{- if .Values.blackbox.probeSpec.metricRelabelings }}
+  metricRelabelings:
+    {{- .Values.blackbox.probeSpec.metricRelabelings | toYaml | nindent 4 }}
+  {{- end }}
+  {{- if .Values.blackbox.probeSpec.module }}
+  module: {{ .Values.blackbox.probeSpec.module | quote }}
+  {{- end }}
+  {{- if .Values.blackbox.probeSpec.oauth2 }}
+  oauth2:
+    {{- .Values.blackbox.probeSpec.oauth2 | toYaml | nindent 4 }}
+  {{- end }}
+  {{- if or (.Values.blackbox.blackboxProber.enabled) (.Values.blackbox.probeSpec.prober) }}
+  prober:
+    {{- if .Values.blackbox.blackboxProber.enabled }}
+    path: {{ .Values.blackbox.blackboxProber.path | quote }}
+    {{- if .Values.blackbox.blackboxProber.namespace }}
+    url: {{ .Values.blackbox.blackboxProber.service }}.{{ .Values.blackbox.blackboxProber.namespace }}.svc:{{ .Values.blackbox.blackboxProber.port }}
+    {{- else }}
+    url: {{ .Values.blackbox.blackboxProber.service }}:{{ .Values.blackbox.blackboxProber.port }}
+    {{- end }}
+    {{- else }}
+    {{- .Values.blackbox.probeSpec.prober | toYaml | nindent 4 }}
+    {{- end }}
+  {{- end }}
+  {{- if .Values.blackbox.probeSpec.sampleLimit }}
+  sampleLimit: {{ .Values.blackbox.probeSpec.sampleLimit | quote }}
+  {{- end }}
+  {{- if .Values.blackbox.probeSpec.scrapeTimeout }}
+  scrapeTimeout: {{ .Values.blackbox.probeSpec.scrapeTimeout | quote }}
+  {{- end }}
+  {{- if .Values.blackbox.probeSpec.targetLimit }}
+  targetLimit: {{ .Values.blackbox.probeSpec.targetLimit | quote }}
+  {{- end }}
+  {{- if or (.Values.blackbox.helmTargets.enabled) (.Values.blackbox.probeSpec.targets) }}
+  targets:
+    {{- if .Values.blackbox.helmTargets.enabled }}
+    staticConfig:
+      static:
+        {{- if .Values.blackbox.helmTargets.service }}
+        {{- if .Values.blackbox.helmTargets.path }}
+        - "http://{{ include "automating-blackbox-monitoring-for-your-helm-chart.fullname" . }}.{{ .Release.Namespace }}.svc:{{ .Values.service.port }}{{ .Values.blackbox.helmTargets.path }}"
+        {{- else }}
+        - "http://{{ include "automating-blackbox-monitoring-for-your-helm-chart.fullname" . }}.{{ .Release.Namespace }}.svc:{{ .Values.service.port }}"
+        {{- end }}
+        {{- end }}
+        {{- if and (.Values.ingress.enabled) (.Values.blackbox.helmTargets.ingress) }}
+        {{- if .Values.blackbox.helmTargets.path }}
+        - "http://{{ .Values.ingress.hostname }}{{ .Values.blackbox.helmTargets.path }}"
+        {{- else }}
+        - "http://{{ .Values.ingress.hostname }}"
+        {{- end }}
+        {{- end }}
+    {{- else }}
+    {{- .Values.blackbox.probeSpec.targets | toYaml | nindent 4 }}
+    {{- end }}
+  {{- end }}
+  {{- if .Values.blackbox.probeSpec.tlsConfig }}
+  tlsConfig:
+    {{- .Values.blackbox.probeSpec.tlsConfig | toYaml | nindent 4 }}
+  {{- end }}
+{{- end }}

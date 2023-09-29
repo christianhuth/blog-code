@@ -1,0 +1,4 @@
+---
+apiVersion: v2
+name: automating-blackbox-monitoring-for-your-helm-chart
+version: 1.0.0
